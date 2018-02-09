@@ -8,4 +8,4 @@
 
 Note: The WASM backends (see WASM switch in my respective make-scripts) can be used as a 
 replacement for regular JS backends. They use less space and run faster, but at this
-time they may not be supported my all browsers yet.
+time they may not be supported by all browsers yet.
