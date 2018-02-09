@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<title>ChiptuneBlaster</title>
+
+<meta name="description" content="ChiptuneBlaster - combined WebAudio chiptune player recognizes >400 formats on one web page.">
+<meta name="author" content="Juergen Wothke">
+<meta name="keywords" content="Web Audio API, HTML5, JavaScript, chiptune, Chiptune Blaster">
+
+
+<link rel="image_src" href="screenshot.gif" />
+<meta property="og:image" content="http://www.wothke.ch/blaster/screenshot.gif" />
+
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+<link type="image/x-icon" href="favicon.ico" />
+
+<link href="stdlib/font.css" rel="stylesheet" type="text/css">
+<link href="stdlib/common.css" rel="stylesheet" type="text/css">
+<link href="add_on.css" rel="stylesheet" type="text/css">
+
+
+<script type="text/javascript" src="stdlib/jquery1.11.min.js"></script>
+<script type="text/javascript" src="stdlib/jquery.details.min.js"></script>
+<script type="text/javascript" src="stdlib/scriptprocessor_player.min.js"></script>
+
+<script>window.openDetails=false;</script>
+<script type="text/javascript" src="stdlib/mini_display.js"></script>
+<script type="text/javascript" src="stdlib/mini_controls.js"></script>
+
+<!-- various player backends-->
+<script type="text/javascript" src="backend_adplug.js"></script>
+<script type="text/javascript" src="backend_tinyrsid.js"></script>
+<script type="text/javascript" src="backend_asap.js"></script>
+<script type="text/javascript" src="backend_vgm.js"></script>
+<script type="text/javascript" src="backend_xmp.js"></script>
+<script type="text/javascript" src="backend_uade.js"></script>
+<script type="text/javascript" src="backend_sc68.js"></script>
+<script type="text/javascript" src="backend_zxtune.js"></script>
+<script type="text/javascript" src="backend_psx.js"></script>
+
+	<!-- 3rd party backend-->
+<script type="text/javascript" src="backend_snes.js"></script>
+
+
+<script>
+var adapters= [
+	{ /* 0 */
+		adapter: ((typeof AdPlugBackendAdapter === 'function') ?  new AdPlugBackendAdapter() : 0),
+		preload: [
+			"res/insts.dat",		// needed for KSM
+			"res/standard.bnk",		// needed for ROL
+			"res/adplug.db"
+		],
+		basePath: '',		// not needed here
+		defaultBoostVolume: 0,
+		postfix: ["a2m","ad","adl","adlib","amd","as3m","bam","cff","cmf","cym","d00","dfm","dmo","dro","dtm","ems","fmk","fms","fmt","gmd","gms","hsc","imf","jbm","ksm","laa","lds","m","m2m","mad","mdi","mfp","mkj","msc","mtk","mtm","mtr","mus","mus","nka","not","pis","rad","raw","rmf","sa2","sat","sng","sop","src","xad","xms","xsm"],
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().title;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().player;},
+		line3: function() {return "Backend: AdLibido (AdPlug)"}
+	},
+	{ /* 1 */
+		adapter: ((typeof SIDBackendAdapter === 'function') ?  new SIDBackendAdapter() : 0),
+		preload: [],
+		basePath: '',		// not needed here
+		postfix: ["sid","psid"],
+		defaultBoostVolume: 0,
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().songName;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().songAuthor;},
+		line3: function() {return "Backend: websid (TinyRSid)"}
+	},
+	{ /* 2 */
+		adapter: ((typeof ASAPBackendAdapter === 'function') ?  new ASAPBackendAdapter() : 0),
+		preload: [],
+		basePath: '',		// not needed here
+		defaultBoostVolume: 2,
+		postfix: ["sap","cmc","cm3","cmr","cms","dmc","dlt","mpt","mpd","rmt","tmc","tm8","tm2","fc"],
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().songName;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().songAuthor;},
+		line3: function() {return "Backend: webasap (ASAP)"}
+	},
+	{ /* 3 */
+		adapter: ((typeof VgmBackendAdapter === 'function') ?  new VgmBackendAdapter() : 0),
+		preload: ["VGMPlay.ini", "yrw801.rom"],
+		basePath: '',		// not needed here
+		defaultBoostVolume: 1,
+		postfix: ["vgm", "vgz", "cmf", "dro"],
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().title;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().program;},
+		line3: function() {return "Backend: webvgm (vgmPlay)"}
+	},
+	{ /* 4 */
+		adapter: ((typeof PSXBackendAdapter === 'function') ?  new PSXBackendAdapter(false) : 0),
+		preload: ["PSX2ROM.gz"],
+		basePath: '',		// not needed here
+		postfix: ["psf","minipsf","psflib","psf2","minipsf2","psf2lib"],
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().title +" ("+ScriptNodePlayer.getInstance().getSongInfo().artist+")";},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().copyright;},
+		line3: function() {return "Backend: webpsx (HighlyExperimental)"}
+	},
+	{ /* 5 */
+		adapter: ((typeof XMPBackendAdapter === 'function') ?  new XMPBackendAdapter(false) : 0),
+		preload: [],
+		basePath: '',		// not needed here
+		defaultBoostVolume: 0,
+		postfix: ["669","amd","amf","dbm","dmf","dtm","emod","far","flx","fnk","gdm","gmc","hsc","imf","it","j2b","kris","liq","mdl","med","mod","m15","wow","mod.nt","mtm","okt","psm","ptm","rad","rtm","s3m","sfx","st26","stm","stx","ult","umx","xm"],
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().title;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().player;},
+		line3: function() {return "Backend: webxmp (XMP)"}
+	},
+	{ /* 6 */
+		adapter: ((typeof UADEBackendAdapter === 'function') ?  new UADEBackendAdapter("uade/") : 0),
+		preload: ["uade/uaerc",	"uade/eagleplayer.conf", "uade/amigasrc/score/score"],
+		basePath: 'uade/',
+		defaultBoostVolume: 0,
+		postfix: ["aam","abk","adpcm","adsc","as","agi","ahx","amc","aon","aon4","aon8","aps","ast","avp","bd","bds","bfc","bp","bp3","bsi","bss","c13","cin","cm","core","cus","cust","custom","dat","ssd","db","dh","digi","dl","dl_deli","dlm1","dlm2","dln","dm1","dm2","dmu","dmu2","doda","dp","dsc","dsr","dss","dum","dw","dwold","dz","ea","emod","ems","ex","fc","fc14","fc3","fc4","fc-bsi","fp","fred","fuchs","fw","glue","gm","gmc","gray","hast","hd","hip","hip7","hipc","hn","ims","is","is20","jam","jc","jcb","jcbo","jd","jmf","jp","jpn","jpnd","jpo","jpold","jt","kh","kris","lion","lme","ma","max","mc","mcmd","mcmd_org","mco","mcr","md","mdat","smpl","mdst","med","mfp","mg","midi","mk2","mkii","mkiio","ml","mm4","mm8","mmd0","mmd1","mmd2","mms","mod","mok","mon","mon_old","mso","mtn","mtp2","mug","mug2","mw","nt","octamed","okt","one","osp","p40a","p40b","p41a","p4x","p50a","p5a","p5x","p60","p60a","p61","p61a","p6x","powt","pr1","pr2","prom","ps","psa","psf","pt","puma","pvp","qc","qpa","qts","rh","rho","riff","rjp","rk","rkb","s7g","sa","sa_old","sa-p","sas","sb","sc","s-c","scn","scr","sct","scumm","sdr","sfx","sfx13","sg","sid1","sid2","sjs","sm","sm1","sm2","sm3","smn","smod","smpro","smus","sndmon","ins","snk","snx","soc","sog","sonic","spl","sqt","ss","st","st26","stp","sun","syn","synmod","synth","tf","tf","tfhd1.5","tfhd7V","tfhdpro","tfmx","tfmx1.5","tfmx7V","tfmxpro","thm","thn","thx","tiny","tme","tp3","tpu","trc","tro","tronic","tw","two","vss","wb","wow"],
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().info1;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().info2;},
+		line3: function() {return "Backend: Chron-o-loo (UADE)"}
+	},
+	{ /* 7 */
+		adapter: ((typeof SC68BackendAdapter === 'function') ?  new SC68BackendAdapter() : 0),
+		preload: [],
+		basePath: '',		// not needed here
+		defaultBoostVolume: 0,
+		postfix: ["sc68", "snd"],
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().title;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().author;},
+		line3: function() {return "Backend: jack-in-the-box (sc68)"}
+	},
+	{ /* 8 */
+		adapter: ((typeof ZxTuneBackendAdapter === 'function') ?  new ZxTuneBackendAdapter() : 0),
+		preload: [],
+		basePath: '',		// not needed here
+		defaultBoostVolume: 0,
+		postfix: ["psg","vtx","ym","ayc","as0","asc","ftc","gtr","psc","psm","sqt","stc","s"," st2","st3","stp","txt","ts","pt1","pt2","pt2","pt3"," ts","chi","dmm","dst","et1","pdt","sqd","str","tfd","tfc","tf0","tfe","cop","CHARPRES","cc3","cc4","DSQ","ESV","gam","gamplus","hrm","bin","p","LZH1"," LZH2","lzs","MEGALZ","msp","PACK2","pcd","tlz","trs","hrp","zip","zip","trd","scl","$m"," $B","fdi","td0","dsk","SNA128","szx","z80","ay"],
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().title;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().program;},
+		line3: function() {return "Backend: spectreZX (ZXTune)"}
+	},
+	{ /* 9 */
+		adapter: ((typeof LibGmeBackendAdapter === 'function') ?  new LibGmeBackendAdapter() : 0),
+		preload: [],
+		basePath: '',		// not needed here
+		postfix: ["spc"],
+		defaultBoostVolume: 0,
+		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().game;},
+		line2: function() {return ScriptNodePlayer.getInstance().getSongInfo().author;},
+		line3: function() {return "Backend: webnes (libGme)"}
+	},	
+];
+
+function getRegexPostFix(backendConfig) {
+	if (!backendConfig.regexPostFix) {	
+		var arr= backendConfig.postfix;
+		if (arr.length<1) alert("invalid input");
+		
+		var ex= "([^\\s]+(\\.(";
+		ex += arr[0];
+		var i;
+		for (i= 1; i<arr.length; i++) { ex += ("|"+arr[i]);}
+		ex+="))$)";
+
+		backendConfig.regexPostFix= new RegExp(ex, 'i');
+	}	
+	return backendConfig.regexPostFix;		
+}
+
+var playerControls;
+var	songDisplay;
+
+var currentBackendId= 0;
+
+MultiDisplayAccessor = (function(){ var $this = function (doGetSongInfo) {
+		$this.base.call(this, doGetSongInfo);
+	}; 
+	extend(DisplayAccessor, $this, {
+		getDisplayTitle: function() 	{ return "ChiptuneBlaster";},
+		getDisplaySubtitle: function() 	{ return "one-stop WebAudio nostalgia..";},
+		getDisplayLine1: function() { return adapters[currentBackendId].line1();},
+		getDisplayLine2: function() { return adapters[currentBackendId].line2(); },
+		getDisplayLine3: function() { return adapters[currentBackendId].line3();; }
+	});	return $this; })();
+
+// playlist configuration 
+var songs = [
+	// format: playerIdx (to override automatic selection);file;boostVolume;track;timeout
+	';music/Clubster.sid;0;0',
+/* 
+	// you'd have to add these files to the project yourself first:
+	';music/Yie_Ar_Kung_Fu_Title.sap;2',
+	';music/blaster2.msc',
+	';music/Undead Psychosomatic Sound (unreleased) Demo.sc68;0;6;249',
+	';music/Arkanoid.sid;0;0;142',
+	';music/Doom.vgz;3',
+	';music/ZAK.S3M',
+	';songs/cust.The_Pawn;0;0;190',	// CAUTION: UADE songs must be located separately in some sub-folder of 'uade'
+	';music/Untitled.dst;0;0',
+	';music/crash2.psflib;2;0;112',
+	';music/sb2-01.spc;0;0;30',
+*/
+];
+
+// link player events to "controls" and "display"
+function doOnTrackEnd(){
+	if (playerControls) playerControls.playNextSong();  
+}
+function doOnTrackReadyToPlay(){
+	ScriptNodePlayer.getInstance().play();
+	songDisplay.redrawSongInfo();
+}
+var once= true;
+function doOnPlayerReady() {
+	if (playerControls && once) {once= false; playerControls.playSong(songs[0]);}
+}
+
+function addAdapterConfig(backend, dest) {
+	dest.backendAdapter= { 	adapter: backend.adapter,
+							debug: backend.line3(),
+							basePath: backend.basePath,
+							preload: backend.preload,
+							enableSpectrum: true,
+							doOnPlayerReady: doOnPlayerReady,
+							doOnTrackReadyToPlay: doOnTrackReadyToPlay,
+							doOnTrackEnd: doOnTrackEnd
+						};
+}
+
+function getBackendAdapterForName(filename, adapterArray) {
+	// handle drop - try to guess most likely player
+	var i, found= false;
+	
+	for (i= 0; i<adapterArray.length; i++) {
+		if (filename.search(getRegexPostFix(adapterArray[i])) != -1) {
+			found= true; 
+			break;
+		}
+	}				
+	if (!found) {
+		i= 6; // per default use UADE (all others usually use postfixes)
+	}
+	currentBackendId= i;
+	var backend= adapterArray[i];
+	
+	var options= new Object();
+	if (typeof backend.defaultBoostVolume != 'undefined') {
+		options.boostVolume= backend.defaultBoostVolume;
+	}
+	addAdapterConfig(backend, options);
+	
+	return options;
+}
+
+function parsePlaylistEntry(someSong) {
+	var arr= someSong.split(";");	
+	if (arr.length > 1) {
+		var id= parseInt(arr[0]);
+		
+		var boostVolume= arr.length>2?parseInt(arr[2]):0;
+		var track= arr.length>3?parseInt(arr[3]):-1;
+		var timeout= arr.length>4?parseInt(arr[4]):-1;
+
+		currentBackendId= id;
+
+		var options= isNaN(id) ? getBackendAdapterForName(arr[1], adapters) : {};
+			
+		options.track= track;
+		options.boostVolume= boostVolume;
+		options.timeout= timeout;
+		
+		if (!isNaN(id))
+			addAdapterConfig(adapters[id], options);
+
+		return [arr[1], options];
+	} else {
+		// drag&drop temp file
+		var options= getBackendAdapterForName(someSong, adapters);
+		return [someSong, options];
+	}
+}
+
+function playFirstSong() {
+	var arr= parsePlaylistEntry(songs[0]);
+	var backend= arr[1].backendAdapter;
+	ScriptNodePlayer.createInstance(backend.adapter, backend.basePath, backend.preload, true, 
+									doOnPlayerReady, doOnTrackReadyToPlay, doOnTrackEnd);
+
+//	ScriptNodePlayer.getInstance().setTraceMode(true);					
+}
+
+function init() {
+	playerControls= new BasicPlayerControls(songs, false, true,
+				(function(someSong) {
+					return parsePlaylistEntry(someSong);
+				}),
+				(function(filename) {
+					var options= getBackendAdapterForName(filename, adapters);				
+					return options;
+				}),
+				0	// set current playlist pos 
+			);
+
+	playFirstSong();	// starts by triggering doOnPlayerReady when player is ready.
+
+	songDisplay= new SongDisplay(new MultiDisplayAccessor((function(){return playerControls.getSongInfo();})), 
+								[0xff078d, 0x180ffd, 0xf0f070, 0xff078d], 3, 0.5, (function(){playerControls.animate()}));
+	songDisplay.setBarDimensions(15, 20, 17);	
+}
+</script>
+<script type="text/javascript" src="stdlib/analytics.js"></script>
+</head>
+
+<body onload="init();">
+<div class="tooltip" id="tooltip" alt= "This is a hobby project, but it costs not only time to regularily maintain this site but also money to pay for the internet service provider (etc). If you want to keep this site up and running.. or if you just like my work (see https://jwothke.wordpress.com/) and you'd like to see more of it in the future, please make a contribution. Thank you!"></div>
+
+<details>
+  <summary>What's this?</summary>
+  <div>
+  <p>ChiptuneBlaster is a WebAudio based player for synthesized electronic music produced by the sound chips of vintage computers, video game consoles, and arcade machines.
+  
+  <p>The player uses a plugin-design that allows it to be extend with various "backend" engines. This page combines the capabilities of 9 different "backends" (AdPlug, ASAP, HighlyExperimental, sc68, TinyRSid, UADE, vgmPlay, XMP, ZXTune) which means that it will recognize and play about 400 different music file formats (see format overview <a target="_blank" href="http://www.wothke.ch/tinyrsid/index.php/webaudio-players-2">here</a>).
+
+  <p>Drag&Drop your song files directly on the jukebox to play them. (The initial "backend" selection here is based on the filename extension and you have to make sure that your music file has a recognized filename.)
+ 
+  <p>Please use the below controls to navigate between the songs.
+  
+ </div>
+</details>
+<aside>
+</aside>
+<section>
+  <div id="logo">
+		<!-- in new Chrome the SHIT reflections disapear dependig on the canvas height.. what a fucking joke -->
+		<div id="moz-reflect-logo"><canvas  id="logoCanvas"  width="250" height="100"></canvas></div>	
+  </div>
+  
+  <div id="spectrum" >
+		<!-- use "height" greater than 80 and the fucking reflection is gone.. FUCK YOU GOOGLE IDIOTS -->
+		<div id="moz-reflect-spectrum"><canvas id="spectrumCanvas" width="800" height="80"></canvas></div>
+  </div>
+  <div id="drop" class="drop"><img src="jukebox.gif" width=181 height=300/></div><!--see BasicPlayerControls-->
+<div id="ctrl" class="ctrl"><span id="controls"></span></div>
+</section>
+</body>
+</html>
