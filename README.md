@@ -6,7 +6,7 @@ This project provides the precompiled versions of all my WebAudio based chiptune
 players (see my other projects). It allows to fetch a consistent and up-to-date
 set without having to build the stuff yourself.
 
-* 'library' folder contains the respective re-built components
+* 'library' folder contains the respective pre-built components
 * 'blaster' folder provides an example web page showing the use of the components
 
 
