@@ -2,7 +2,7 @@
 
 * 'JS' folder contains the "plain JS" versions of my backends
 * 'WASM' folder contains the WebAssembly versions of my backends
-* '3rdParty' folder contains backends that I did not create from scratch and with therefore are just available "as is"
+* '3rdParty' folder contains backends that I did not create from scratch and which therefore are just available "as is"
 * 'scriptprocessor_player.min.js' is the latest version of my player
 
 
