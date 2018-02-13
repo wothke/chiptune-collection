@@ -15,4 +15,12 @@ resources (config files). Respective data is not provided in the 'library' but i
 be found in the 'blaster' example code.
 
 ## License
-License information of my respective underlying projects applies.
+License information of the respective underlying projects applies!
+
+Technically this convenience package DOES NOT exist ;-) This is due to GPL's braindead 
+licensing model, which prohibits GPL stuff to be distibuted together with NON-GPL stuff. 
+Eventhough many of the backends are GPL, the base infrastructure player is not - nor is the
+"C64 backend" (which both use a "Creative Commons BY-NC-SA" licence). GPL purists should 
+probably rather not use this convenience package - or first check if all their used 
+OS/driver and web-browser code is actually GPL too..
+
