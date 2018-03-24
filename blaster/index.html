@@ -92,8 +92,7 @@ var adapters= [
 		line3: function() {return "Backend: webvgm (vgmPlay)"}
 	},
 	{ /* 4 */
-		adapter: ((typeof PSXBackendAdapter === 'function') ?  new PSXBackendAdapter(false) : 0),
-		preload: ["PSX2ROM.gz"],
+		adapter: ((typeof PSXBackendAdapter === 'function') ?  new PSXBackendAdapter(false, true) : 0),
 		basePath: '',		// not needed here
 		postfix: ["psf","minipsf","psflib","psf2","minipsf2","psf2lib"],
 		line1: function() {return ScriptNodePlayer.getInstance().getSongInfo().title +" ("+ScriptNodePlayer.getInstance().getSongInfo().artist+")";},

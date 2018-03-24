@@ -31,8 +31,8 @@ function Sa(){E--;e.monitorRunDependencies&&e.monitorRunDependencies(E);if(0==E&
 a);A(a)})}if("object"!==typeof WebAssembly)return e.printErr("no native wasm support detected"),!1;if(!(e.wasmMemory instanceof WebAssembly.Memory))return e.printErr("no native wasm Memory in use"),!1;a.memory=e.wasmMemory;h.global={NaN:NaN,Infinity:Infinity};h["global.Math"]=Math;h.env=a;Qa();if(e.instantiateWasm)try{return e.instantiateWasm(h,c)}catch(ta){return e.printErr("Module.instantiateWasm callback failed with error: "+ta),!1}e.wasmBinary||"function"!==typeof WebAssembly.instantiateStreaming||
 Ta(f)||"function"!==typeof fetch?g(d):WebAssembly.instantiateStreaming(fetch(f,{credentials:"same-origin"}),h).then(d).catch(function(a){e.printErr("wasm streaming compile failed: "+a);e.printErr("falling back to ArrayBuffer instantiation");g(d)});return{}}var d="uade.wast",f="uade.wasm",g="uade.temp.asm.js";"function"===typeof e.locateFile&&(Ta(d)||(d=e.locateFile(d)),Ta(f)||(f=e.locateFile(f)),Ta(g)||(g=e.locateFile(g)));var h={global:null,env:null,asm2wasm:{"f64-rem":function(a,b){return a%b},
 "debugger":function(){debugger}},parent:e},n=null;e.asmPreload=e.asm;var m=e.reallocBuffer;e.reallocBuffer=function(a){if("asmjs"===t)var b=m(a);else a:{var c=e.usingWasm?65536:16777216;0<a%c&&(a+=c-a%c);c=e.buffer.byteLength;if(e.usingWasm)try{b=-1!==e.wasmMemory.grow((a-c)/65536)?e.buffer=e.wasmMemory.buffer:null;break a}catch(ua){b=null;break a}b=void 0}return b};var t="";e.asm=function(a,b){if(!b.table){a=e.wasmTableSize;void 0===a&&(a=1024);var d=e.wasmMaxTableSize;b.table="object"===typeof WebAssembly&&
-"function"===typeof WebAssembly.Table?void 0!==d?new WebAssembly.Table({initial:a,maximum:d,element:"anyfunc"}):new WebAssembly.Table({initial:a,element:"anyfunc"}):Array(a);e.wasmTable=b.table}b.memoryBase||(b.memoryBase=e.STATIC_BASE);b.tableBase||(b.tableBase=0);(b=c(b))||A("no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: https://github.com/kripken/emscripten/wiki/WebAssembly#binaryen-methods");return b}})();Aa=1024;v=Aa+816576;Ia.push();
-e.STATIC_BASE=Aa;e.STATIC_BUMP=816576;v+=16;
+"function"===typeof WebAssembly.Table?void 0!==d?new WebAssembly.Table({initial:a,maximum:d,element:"anyfunc"}):new WebAssembly.Table({initial:a,element:"anyfunc"}):Array(a);e.wasmTable=b.table}b.memoryBase||(b.memoryBase=e.STATIC_BASE);b.tableBase||(b.tableBase=0);(b=c(b))||A("no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: https://github.com/kripken/emscripten/wiki/WebAssembly#binaryen-methods");return b}})();Aa=1024;v=Aa+817872;Ia.push();
+e.STATIC_BASE=Aa;e.STATIC_BUMP=817872;v+=16;
 var F={D:1,u:2,xc:3,tb:4,A:5,fa:6,Ma:7,Rb:8,L:9,$a:10,aa:11,Hc:11,va:12,P:13,mb:14,cc:15,R:16,ba:17,Ic:18,T:19,da:20,H:21,h:22,Mb:23,ua:24,C:25,Ec:26,nb:27,Zb:28,M:29,uc:30,Fb:31,nc:32,jb:33,rc:34,Vb:42,qb:43,ab:44,wb:45,xb:46,yb:47,Eb:48,Fc:49,Pb:50,vb:51,gb:35,Sb:37,Sa:52,Va:53,Jc:54,Nb:55,Wa:56,Xa:57,hb:35,Ya:59,ac:60,Qb:61,Bc:62,$b:63,Wb:64,Xb:65,tc:66,Tb:67,Pa:68,yc:69,bb:70,oc:71,Hb:72,kb:73,Ua:74,ic:76,Ta:77,sc:78,zb:79,Ab:80,Db:81,Cb:82,Bb:83,bc:38,ea:39,Ib:36,S:40,jc:95,mc:96,fb:104,Ob:105,
 Qa:97,qc:91,fc:88,Yb:92,vc:108,eb:111,Na:98,cb:103,Lb:101,Jb:100,Cc:110,ob:112,pb:113,sb:115,Ra:114,ib:89,Gb:90,pc:93,wc:94,Oa:99,Kb:102,ub:106,dc:107,Dc:109,Gc:87,lb:122,zc:116,hc:95,Ub:123,rb:84,kc:75,Za:125,ec:131,lc:130,Ac:86},Ua={0:"Success",1:"Not super-user",2:"No such file or directory",3:"No such process",4:"Interrupted system call",5:"I/O error",6:"No such device or address",7:"Arg list too long",8:"Exec format error",9:"Bad file number",10:"No children",11:"No more processes",12:"Not enough core",
 13:"Permission denied",14:"Bad address",15:"Block device required",16:"Mount device busy",17:"File exists",18:"Cross-device link",19:"No such device",20:"Not a directory",21:"Is a directory",22:"Invalid argument",23:"Too many open files in system",24:"Too many open files",25:"Not a typewriter",26:"Text file busy",27:"File too large",28:"No space left on device",29:"Illegal seek",30:"Read only file system",31:"Too many links",32:"Broken pipe",33:"Math arg out of domain of func",34:"Math result not representable",
@@ -103,7 +103,7 @@ Hb(c);return 0}catch(d){return"undefined"!==typeof FS&&d instanceof H||A(d),-d.o
 x[Z+4>>2]=a.getMinutes();x[Z+8>>2]=a.getHours();x[Z+12>>2]=a.getDate();x[Z+16>>2]=a.getMonth();x[Z+20>>2]=a.getFullYear()-1900;x[Z+24>>2]=a.getDay();var b=new Date(a.getFullYear(),0,1);x[Z+28>>2]=(a.getTime()-b.getTime())/864E5|0;x[Z+36>>2]=-(60*a.getTimezoneOffset());var c=(new Date(2E3,6,1)).getTimezoneOffset();b=b.getTimezoneOffset();a=(c!=b&&a.getTimezoneOffset()==Math.min(b,c))|0;x[Z+32>>2]=a;x[Z+40>>2]=x[Wb+(a?4:0)>>2];return Z},_time:function(a){var b=Date.now()/1E3|0;a&&(x[a>>2]=b);return b},
 _uade_notify_song_update:function(a,b,c,d){a=C(a);b=C(b);c=C(c);d=C(d);var f=a.split("\n"),g={},h=null,n=null;for(a=0;a<f.length;a++){var m=f[a];if(aa(m,"File name:")){var t=g.title?g.title:[];t.push(m.split("/").pop().trim());g.title=t}else if(aa(m,"Song title:"))t=g.title?g.title:[],t.unshift(m.substring(11).trim()),g.title=t;else if(aa(m,"File prefix:"))g.prefix=m.substring(12).trim();else{a:{var z=m,N="MODULENAME: AUTHORNAME: SPECIALINFO: VERSION: CREDITS: Remarks:".split(" ");for(t=0;t<N.length;t++){var D=
 N[t];if(z.match("^"+D)==D){t=D;break a}}t=null}t?(h&&n&&(g[h]=n,n=null),h=t.substring(0,t.length-1).toLowerCase()):(m=m.trim(),m.length&&h&&(n||(n=[]),n.push(m)))}}h&&n&&(g[h]=n);a=[];for(f=Object.keys(g).length-2;3>=a.length&&0<f;)"modulename"in g?(a.push(g.modulename.shift()),delete g.modulename,f--):"authorname"in g?(a.push(g.authorname.shift()),delete g.authorname,f--):"specialinfo"in g?(a.push(g.specialinfo.shift()),delete g.specialinfo,f--):"version"in g?(a.push(g.version.shift()),0==g.version.length&&
-(delete g.version,f--)):"credits"in g?(a.push(g.credits.shift()),0==g.credits.length&&(delete g.credits,f--)):"remarks"in g&&(a.push(g.remarks.shift()),0==g.remarks.length&&(delete g.remarks,f--));3>a.length&&a.push(g.title.shift()+" ("+g.prefix+")");g=1<a.length?a[1]:"";f=2<a.length?a[2]:"";h=[];h.info1=0<a.length?a[0]:"";h.info2=g;h.info3=f;h.minText=b;h.maxText=c;h.currText=d;return window.songUpdateCallback(h)},_uade_request_file:function(a){return window.fileRequestCallback(a)},_uade_request_file_size:function(a){return window.fileSizeRequestCallback(a)},
+(delete g.version,f--)):"credits"in g?(a.push(g.credits.shift()),0==g.credits.length&&(delete g.credits,f--)):"remarks"in g&&(a.push(g.remarks.shift()),0==g.remarks.length&&(delete g.remarks,f--));3>a.length&&g.title&&a.push(g.title.shift()+" ("+g.prefix+")");g=1<a.length?a[1]:"";f=2<a.length?a[2]:"";h=[];h.info1=0<a.length?a[0]:"";h.info2=g;h.info3=f;h.minText=b;h.maxText=c;h.currText=d;return window.songUpdateCallback(h)},_uade_request_file:function(a){return window.fileRequestCallback(a)},_uade_request_file_size:function(a){return window.fileSizeRequestCallback(a)},
 DYNAMICTOP_PTR:w,STACKTOP:Ca};var ac=e.asm(e.za,e.Aa,buffer);e.asm=ac;e.___errno_location=function(){return e.asm.___errno_location.apply(null,arguments)};e._emu_compute_audio_samples=function(){return e.asm._emu_compute_audio_samples.apply(null,arguments)};e._emu_get_audio_buffer=function(){return e.asm._emu_get_audio_buffer.apply(null,arguments)};e._emu_get_audio_buffer_length=function(){return e.asm._emu_get_audio_buffer_length.apply(null,arguments)};
 e._emu_init=function(){return e.asm._emu_init.apply(null,arguments)};e._emu_is_exit=function(){return e.asm._emu_is_exit.apply(null,arguments)};e._emu_prepare=function(){return e.asm._emu_prepare.apply(null,arguments)};e._emu_set_subsong=function(){return e.asm._emu_set_subsong.apply(null,arguments)};e._emu_teardown=function(){return e.asm._emu_teardown.apply(null,arguments)};e._free=function(){return e.asm._free.apply(null,arguments)};
 var va=e._malloc=function(){return e.asm._malloc.apply(null,arguments)},na=e.stackAlloc=function(){return e.asm.stackAlloc.apply(null,arguments)},ma=e.stackRestore=function(){return e.asm.stackRestore.apply(null,arguments)},la=e.stackSave=function(){return e.asm.stackSave.apply(null,arguments)};e.dynCall_v=function(){return e.asm.dynCall_v.apply(null,arguments)};e.dynCall_vi=function(){return e.asm.dynCall_vi.apply(null,arguments)};e.asm=ac;
@@ -120,9 +120,9 @@ function dc(){function a(){if(!e.calledRun&&(e.calledRun=!0,!ka)){Ma||(Ma=!0,Ga(
  
  Known limitation: seeking is not supported by UADE
  
- version 1.0
+ version 1.01 with added support for "outside files"
  
- 	Copyright (C) 2015 Juergen Wothke
+ 	Copyright (C) 2018 Juergen Wothke
 
  LICENSE
  
@@ -138,9 +138,14 @@ function dc(){function a(){if(!e.calledRun&&(e.calledRun=!0,!ka)){Ma||(Ma=!0,Ga(
  License along with this library; if not, write to the Free Software
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 */
+UADEBackendAdapter = (function(){ var $this = function (basePath, modlandMode) { 
+	$this.base.call(this, backend_UADE.Module, 2);
+	
+		// aka dumshit ftp.modland.com mode:
+		this.modlandMode= (typeof modlandMode != 'undefined') ? modlandMode : 0;
+		this.originalFile= "";
+		this.modlandMap= {};	// mapping of weird shit filenames used on modland 
 
-UADEBackendAdapter = (function(){ var $this = function (basePath) { 
-	$this.base.call(this, backend_UADE.Module, 2);	
 		this.basePath= basePath;
 		this.isReady= false;
 		
@@ -189,17 +194,113 @@ UADEBackendAdapter = (function(){ var $this = function (basePath) {
 			}
 			return 0;	
 		},
-		getPathAndFilename: function(fullFilename) {			
-			// we need to properly separate the subfolder path from the basePath
-			// because the basePath must be properly set to make UADE look for
-			// its resource files in the right place..
+		mapUrl: function(filename) {			
+			// used transform the "internal filename" to a valid URL
+			var uri= this.mapFs2Uri(filename);
+			var p= uri.indexOf("@");	// cut off "basePath" for "outside" files
+			if (p >= 0) {
+				uri= uri.substring(p+1);
+			}
+			return uri;
+		},
+		/*
+		* Creates the URL used to retrieve the song file.
+		*/
+		mapInternalFilename: function(overridePath, basePath, filename) {
+			// the problem is that in UADE there is only one "basePath" and this specifies 
+			// where to look for *any* files, i.e. uade prefixes this path to whatever
+			// files it is tying to load (config/music - doesn't matter), i.e. a correct 
+			// outside URL CANNOT be passed through UADE without being messed up in the process
+			
+			// solution: use a special marker for "outside" URLs and later just substitute 
+			// whatever garbage path information UADE is adding (see mapUrl() above)
+			
+			// map URL to some valid FS path (must not contain "//", ":" or "?")
+			// input e.g. "@mod_proxy.php?mod=Fasttracker/4-Mat/bonus.mod" or
+			// "@ftp://foo.com/foo/bar/file.mod" (should avoid name clashes)
+			
+			filename= this.mapUri2Fs("@" + filename);	// treat all songs as "from outside"
+
+			var f= ((overridePath)?overridePath:basePath) + filename;	// this._basePath ever needed?
+
+			if (this.modlandMode) this.originalFile= f;
+
+			return f;
+		},
+		getPathAndFilename: function(fullFilename) {
+			// input is path+filename combined: base for "registerFileData" & "loadMusicData"
+			
 			if (fullFilename.substring(0, this.basePath.length) == this.basePath) {
 				fullFilename= fullFilename.substring(this.basePath.length);
 			}
+			// since uade needs the basePath to *ALWAYS* point to the folder where the various config 
+			// files can be found, the filename returned here is actually still a path 
 			return [this.basePath, fullFilename];
 		},
+		mapCacheFileName: function (name) {
+			return name;	// might need to use toUpper() in case there are inconsistent refs
+		},
+		mapModlandShit: function (input) {
+			// modland uses wrong (lower) case for practically all sample file names.. damn jerks
+			var output= input.replace(".adsc.AS", ".adsc.as");	// AudioSculpture
+			output= output.replace("/SMP.", "/smp.");	// Dirk Bialluch, Dynamic Synthesizer, Jason Page, Magnetic Fields Packer, Quartet ST, Synth Dream, Thomas Hermann 
+			output= output.replace(".SSD", ".ssd");		// Paul Robotham 
+			output= output.replace(".INS", ".ins");	// Richard Joseph  
+			
+			if (this.originalFile.endsWith(".soc") && output.endsWith(".so")) {	// Hippel ST COSO 
+				output= output.substr(0, output.lastIndexOf("/")) + "/smp.set";
+			} else if (this.originalFile.endsWith(".pap") && output.endsWith(".pa")) { // Pierre Adane Packer 
+				output= output.substr(0, output.lastIndexOf("/")) + "/smp.set";
+			} else if (this.originalFile.endsWith(".osp") && output.endsWith(".os")) { // Synth Pack  
+				output= output.substr(0, output.lastIndexOf("/")) + "/smp.set";
+			}
+			
+			if (input != output)	// remember the filename mapping (path is the same)
+				this.modlandMap[output.replace(/^.*[\\\/]/, '')]= input.replace(/^.*[\\\/]/, '');	// needed to create FS expected by "amiga"
+			
+			return output;
+		},		
+		mapBackendFilename: function (name) {
+			// triggered by UADE whenever it tries to load a file, the input "name" is
+			// composed of UADE's basePath combined with the file that uade is looking for:
+			// the "name" is what UADE later WILL USE for fopen (which is NOT affected by any mappings 
+			// that might be done here.. i.e. in order to function the file must be installed in the FS
+			// under exactly that path/name!)
+			var input= this.Module.Pointer_stringify(name);
+			
+			if (this.modlandMode) input= this.mapModlandShit(input);
+		
+			return input;
+		},
+		registerFileData: function(pathFilenameArray, data) {
+			// NOTE: UADE uses the "C fopen" based impl to access all files, i.e. the files 
+			// MUST BE properly provided within the FS (the local cache within the player is nothing more than a 
+			// convenience shortcut to detect if data is  already available - but irrelevant to UADE)
+			
+			// input: the path is fixed to the basePath & the filename is actually still a path+filename
+			var path= pathFilenameArray[0];
+			var filename= pathFilenameArray[1];
+
+			// MANDATORTY to move any path info still present in the "filename" to "path"
+			var tmpPpathFilenameArray = new Array(2);	// do not touch original IO param			
+			var p= filename.lastIndexOf("/");
+			if (p > 0) {
+				tmpPpathFilenameArray[0]= path + filename.substring(0, p);
+				tmpPpathFilenameArray[1]= filename.substring(p+1);
+			} else  {
+				tmpPpathFilenameArray[0]= path;
+				tmpPpathFilenameArray[1]= filename;
+			}
+
+			if (this.modlandMode) {
+				if (typeof this.modlandMap[tmpPpathFilenameArray[1]] != 'undefined') {
+					tmpPpathFilenameArray[1]= this.modlandMap[tmpPpathFilenameArray[1]];	// reverse map
+				}
+			}
+			// setup data in our virtual FS (the next access should then be OK)
+			return this.registerEmscriptenFileData(tmpPpathFilenameArray, data);
+		},
 		loadMusicData: function(sampleRate, path, filename, data, options) {
-			// UADE adds its own path delim so we better remove existing delim
 			if (path.substr(-1) === "/") path= path.substring(0, path.length-1);
 			
 			var ret = this.Module.ccall('emu_init', 'number', 
@@ -268,14 +369,5 @@ UADEBackendAdapter = (function(){ var $this = function (basePath) {
 			
 			this.updateSongInfo("", target);		
 		},
-		mapBackendFilename: function (name) {
-			var input= this.Module.Pointer_stringify(name);
-			return input;
-		},
-		registerFileData: function(pathFilenameArray, data) {
-			// setup data in our virtual FS (the next access should then be OK)
-			return this.registerEmscriptenFileData(pathFilenameArray, data);
-		},
 		
 	});	return $this; })();
-	
