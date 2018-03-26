@@ -32,7 +32,7 @@ function Qa(){D--;e.monitorRunDependencies&&e.monitorRunDependencies(D);if(0==D&
 a);z(a)})}if("object"!==typeof WebAssembly)return e.printErr("no native wasm support detected"),!1;if(!(e.wasmMemory instanceof WebAssembly.Memory))return e.printErr("no native wasm Memory in use"),!1;a.memory=e.wasmMemory;h.global={NaN:NaN,Infinity:Infinity};h["global.Math"]=Math;h.env=a;Pa();if(e.instantiateWasm)try{return e.instantiateWasm(h,c)}catch(O){return e.printErr("Module.instantiateWasm callback failed with error: "+O),!1}e.wasmBinary||"function"!==typeof WebAssembly.instantiateStreaming||
 Ra(f)||"function"!==typeof fetch?g(d):WebAssembly.instantiateStreaming(fetch(f,{credentials:"same-origin"}),h).then(d).catch(function(a){e.printErr("wasm streaming compile failed: "+a);e.printErr("falling back to ArrayBuffer instantiation");g(d)});return{}}var d="xmp.wast",f="xmp.wasm",g="xmp.temp.asm.js";"function"===typeof e.locateFile&&(Ra(d)||(d=e.locateFile(d)),Ra(f)||(f=e.locateFile(f)),Ra(g)||(g=e.locateFile(g)));var h={global:null,env:null,asm2wasm:{"f64-rem":function(a,b){return a%b},"debugger":function(){debugger}},
 parent:e},n=null;e.asmPreload=e.asm;var u=e.reallocBuffer;e.reallocBuffer=function(a){if("asmjs"===x)var b=u(a);else a:{var c=e.usingWasm?65536:16777216;0<a%c&&(a+=c-a%c);c=e.buffer.byteLength;if(e.usingWasm)try{b=-1!==e.wasmMemory.grow((a-c)/65536)?e.buffer=e.wasmMemory.buffer:null;break a}catch(Aa){b=null;break a}b=void 0}return b};var x="";e.asm=function(a,b){if(!b.table){a=e.wasmTableSize;void 0===a&&(a=1024);var d=e.wasmMaxTableSize;b.table="object"===typeof WebAssembly&&"function"===typeof WebAssembly.Table?
-void 0!==d?new WebAssembly.Table({initial:a,maximum:d,element:"anyfunc"}):new WebAssembly.Table({initial:a,element:"anyfunc"}):Array(a);e.wasmTable=b.table}b.memoryBase||(b.memoryBase=e.STATIC_BASE);b.tableBase||(b.tableBase=0);(b=c(b))||z("no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: https://github.com/kripken/emscripten/wiki/WebAssembly#binaryen-methods");return b}})();ya=1024;t=ya+43280;Ha.push();e.STATIC_BASE=ya;e.STATIC_BUMP=43280;t+=16;
+void 0!==d?new WebAssembly.Table({initial:a,maximum:d,element:"anyfunc"}):new WebAssembly.Table({initial:a,element:"anyfunc"}):Array(a);e.wasmTable=b.table}b.memoryBase||(b.memoryBase=e.STATIC_BASE);b.tableBase||(b.tableBase=0);(b=c(b))||z("no binaryen method succeeded. consider enabling more options, like interpreting, if you want that: https://github.com/kripken/emscripten/wiki/WebAssembly#binaryen-methods");return b}})();ya=1024;t=ya+462448;Ha.push();e.STATIC_BASE=ya;e.STATIC_BUMP=462448;t+=16;
 function E(){z()}
 var F={B:1,u:2,yc:3,ub:4,A:5,ga:6,Na:7,Sb:8,N:9,ab:10,da:11,Ic:11,wa:12,U:13,nb:14,dc:15,V:16,ea:17,Jc:18,X:19,O:20,I:21,h:22,Nb:23,va:24,F:25,Fc:26,ob:27,$b:28,P:29,vc:30,Gb:31,oc:32,kb:33,sc:34,Wb:42,rb:43,bb:44,xb:45,yb:46,zb:47,Fb:48,Gc:49,Qb:50,wb:51,hb:35,Tb:37,Ta:52,Wa:53,Kc:54,Ob:55,Xa:56,Ya:57,ib:35,Za:59,bc:60,Rb:61,Cc:62,ac:63,Xb:64,Yb:65,uc:66,Ub:67,Qa:68,zc:69,cb:70,pc:71,Ib:72,lb:73,Va:74,jc:76,Ua:77,tc:78,Ab:79,Bb:80,Eb:81,Db:82,Cb:83,cc:38,fa:39,Jb:36,W:40,kc:95,nc:96,gb:104,Pb:105,
 Ra:97,rc:91,hc:88,Zb:92,wc:108,fb:111,Oa:98,eb:103,Mb:101,Kb:100,Dc:110,pb:112,qb:113,tb:115,Sa:114,jb:89,Hb:90,qc:93,xc:94,Pa:99,Lb:102,vb:106,ec:107,Ec:109,Hc:87,mb:122,Ac:116,ic:95,Vb:123,sb:84,lc:75,$a:125,fc:131,mc:130,Bc:86};function Sa(a){e.___errno_location&&(w[e.___errno_location()>>2]=a);return a}
@@ -108,8 +108,8 @@ typeof FS&&g instanceof H||z(g),-g.m}},___syscall54:function(a,b){V=b;try{var c=
 H||z(g),-g.m}},___syscall6:function(a,b){V=b;try{var c=X();Kb(c);return 0}catch(d){return"undefined"!==typeof FS&&d instanceof H||z(d),-d.m}},___unlock:function(){},_emscripten_memcpy_big:function(a,b,c){B.set(B.subarray(b,b+c),a);return a},_getenv:$b,_llvm_exp2_f32:bc,_llvm_exp2_f64:function(){return bc.apply(null,arguments)},_localtime_r:function(a,b){fc();a=new Date(1E3*w[a>>2]);w[b>>2]=a.getSeconds();w[b+4>>2]=a.getMinutes();w[b+8>>2]=a.getHours();w[b+12>>2]=a.getDate();w[b+16>>2]=a.getMonth();
 w[b+20>>2]=a.getFullYear()-1900;w[b+24>>2]=a.getDay();var c=new Date(a.getFullYear(),0,1);w[b+28>>2]=(a.getTime()-c.getTime())/864E5|0;w[b+36>>2]=-(60*a.getTimezoneOffset());var d=(new Date(2E3,6,1)).getTimezoneOffset();c=c.getTimezoneOffset();a=(d!=c&&a.getTimezoneOffset()==Math.min(c,d))|0;w[b+32>>2]=a;w[b+40>>2]=w[cc+(a?4:0)>>2];return b},DYNAMICTOP_PTR:v,STACKTOP:Ba};var rc=e.asm(e.Aa,e.Ba,buffer);e.asm=rc;e.___errno_location=function(){return e.asm.___errno_location.apply(null,arguments)};
 e._endXmp=function(){return e.asm._endXmp.apply(null,arguments)};var ac=e._free=function(){return e.asm._free.apply(null,arguments)};e._getMusicInfo=function(){return e.asm._getMusicInfo.apply(null,arguments)};e._getXmpCurrentPosition=function(){return e.asm._getXmpCurrentPosition.apply(null,arguments)};e._getXmpFrameInfo=function(){return e.asm._getXmpFrameInfo.apply(null,arguments)};e._getXmpLoopCount=function(){return e.asm._getXmpLoopCount.apply(null,arguments)};
-e._getXmpMaxPosition=function(){return e.asm._getXmpMaxPosition.apply(null,arguments)};e._getXmpModuleInfo=function(){return e.asm._getXmpModuleInfo.apply(null,arguments)};e._getXmpSampleRate=function(){return e.asm._getXmpSampleRate.apply(null,arguments)};e._getXmpSoundBuffer=function(){return e.asm._getXmpSoundBuffer.apply(null,arguments)};e._getXmpSoundBufferLen=function(){return e.asm._getXmpSoundBufferLen.apply(null,arguments)};e._initXmp=function(){return e.asm._initXmp.apply(null,arguments)};
-e._loadXmpModule=function(){return e.asm._loadXmpModule.apply(null,arguments)};var sa=e._malloc=function(){return e.asm._malloc.apply(null,arguments)};e._playXmpFrame=function(){return e.asm._playXmpFrame.apply(null,arguments)};e._seekXmpPosition=function(){return e.asm._seekXmpPosition.apply(null,arguments)};e._startXmpPlayer=function(){return e.asm._startXmpPlayer.apply(null,arguments)};
+e._getXmpMaxPosition=function(){return e.asm._getXmpMaxPosition.apply(null,arguments)};e._getXmpSampleRate=function(){return e.asm._getXmpSampleRate.apply(null,arguments)};e._getXmpSoundBuffer=function(){return e.asm._getXmpSoundBuffer.apply(null,arguments)};e._getXmpSoundBufferLen=function(){return e.asm._getXmpSoundBufferLen.apply(null,arguments)};e._initXmp=function(){return e.asm._initXmp.apply(null,arguments)};e._loadXmpModule=function(){return e.asm._loadXmpModule.apply(null,arguments)};
+var sa=e._malloc=function(){return e.asm._malloc.apply(null,arguments)};e._playXmpFrame=function(){return e.asm._playXmpFrame.apply(null,arguments)};e._seekXmpPosition=function(){return e.asm._seekXmpPosition.apply(null,arguments)};e._startXmpPlayer=function(){return e.asm._startXmpPlayer.apply(null,arguments)};
 var na=e.stackAlloc=function(){return e.asm.stackAlloc.apply(null,arguments)},ma=e.stackRestore=function(){return e.asm.stackRestore.apply(null,arguments)},la=e.stackSave=function(){return e.asm.stackSave.apply(null,arguments)};e.asm=rc;
 e.ccall=function(a,b,c,d){var f=e["_"+a];assert(f,"Cannot call unknown function "+a+", make sure it is exported");var g=[];a=0;if(d)for(var h=0;h<d.length;h++){var n=qa[c[h]];n?(0===a&&(a=la()),g[h]=n(d[h])):g[h]=d[h]}c=f.apply(null,g);"string"===b&&(c=C(c));0!==a&&ma(a);return c};e.getMemory=function(a){return fa?La?sa(a):ha(a):q(a)};e.Pointer_stringify=C;e.addRunDependency=Pa;e.removeRunDependency=Qa;e.FS_createFolder=Qb;e.FS_createPath=Rb;e.FS_createDataFile=Tb;e.FS_createPreloadedFile=Xb;
 e.FS_createLazyFile=Wb;e.FS_createLink=Ub;e.FS_createDevice=U;e.FS_unlink=Gb;function ea(a){this.name="ExitStatus";this.message="Program terminated with exit("+a+")";this.status=a}ea.prototype=Error();ea.prototype.constructor=ea;var sc=null;Oa=function tc(){e.calledRun||uc();e.calledRun||(Oa=tc)};
@@ -142,7 +142,7 @@ function uc(){function a(){if(!e.calledRun&&(e.calledRun=!0,!ka)){La||(La=!0,Fa(
 */
 XMPBackendAdapter = (function(){ var $this = function () { 
 		$this.base.call(this, backend_XMP.Module, 2);	
-		this.once= 0;
+		this.isXmpAllocated= 0;
 	}; 
 	// XMP's sample buffer contains 2-byte integer sample data (i.e. must be rescaled) 
 	// of 2 interleaved channels
@@ -160,7 +160,6 @@ XMPBackendAdapter = (function(){ var $this = function () {
 			var status= this.Module.ccall('playXmpFrame', 'number');
 			if (status != 0) return status;						// means "end song"
 			
-			this.Module.ccall('getXmpFrameInfo', 'number');
 			return this.Module.ccall('getXmpLoopCount', 'number');	// >0 means "end song"
 		},
 		getMaxPlaybackPosition: function() { 
@@ -182,6 +181,7 @@ XMPBackendAdapter = (function(){ var $this = function () {
 		loadMusicData: function(sampleRate, path, filename, data, options) {
 			var buf = this.Module._malloc(data.length);
 			this.Module.HEAPU8.set(data, buf);
+			
 			var ret = this.Module.ccall('loadXmpModule', 'number', ['number', 'number', 'number'], [buf, data.length, sampleRate]);
 			this.Module._free(buf);
 
@@ -195,13 +195,14 @@ XMPBackendAdapter = (function(){ var $this = function () {
 			if (typeof options.timeout != 'undefined') {
 				ScriptNodePlayer.getInstance().setPlaybackTimeout(options.timeout*1000);
 			}
-			return this.Module.ccall('startXmpPlayer', 'number');
+			var trackId= (typeof options.trackId != 'undefined') ? options.trackId : 0;	// only used for hvl			
+			return this.Module.ccall('startXmpPlayer', 'number', ['number'], [trackId]);
 		},				
 		teardown: function() {
-			if(this.once)
+			if(this.isXmpAllocated)
 				this.Module.ccall('endXmp', 'number');	// just in case
-			this.once= 1;
 			this.Module.ccall('initXmp', 'number');
+			this.isXmpAllocated= 1;
 		},
 		getSongInfoMeta: function() {
 			return {title: String,
